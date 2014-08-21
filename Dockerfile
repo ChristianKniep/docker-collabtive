@@ -1,5 +1,5 @@
 ###### Updated version of fedora (20)
-FROM centos6/supervisor
+FROM qnib/centos6_supervisor
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 EXPOSE 80
