@@ -18,7 +18,7 @@ RUN mkdir -p /var/run/mysqld; chown -R mysql:mysql /var/lib/mysql /var/run/mysql
 ADD etc/supervisor.d/start_mysqld.ini /etc/supervisord.d/start_mysqld.ini
 ADD root/bin/start_mysqld.sh /root/bin/start_mysqld.sh
 
-ADD collabtive20_init.tar /root/collabtive20_init.tar
-ADD backup_init.sql /root/backup_init.sql
+COPY collabtive20_init.tar /root/collabtive20_init.tar
+COPY backup_init.sql /root/backup_init.sql
 
 CMD /usr/bin/supervisord -c /etc/supervisord.conf

@@ -15,10 +15,11 @@ sleep 5
 /usr/bin/mysqld_safe & 
 sleep 5
 
-RANDPW=$(date +"%F_%H-%M-%S"|md5sum|awk '{print $1}')
-MYSQLPW_ROOT=${MYSQLPW_ROOT-rootPw}
+RANDPW=$(date +"%F_%H-%M-%S.%N"|md5sum|awk '{print $1}')
+sleep 0.2
+RANDPW2=$(date +"%F_%H-%M-%S.%N"|md5sum|awk '{print $1}')
 MYSQLPW_ROOT=${MYSQLPW_ROOT-${RANDPW}}
-MYSQLPW_COLL=${MYSQLPW_COLLAB-collab}
+MYSQLPW_COLL=${MYSQLPW_COLLAB-${RANDPW2}}
 
 mysqladmin -u root password ${MYSQLPW_ROOT}
 mysql -uroot -p${MYSQLPW_ROOT} -e "CREATE DATABASE collabtive"
@@ -44,6 +45,7 @@ if [ ! -f /var/www/html/index.php ];then
       tar xf /root/collabtive20_init.tar
       mysql -uroot -p${MYSQLPW_ROOT} < /root/backup_init.sql
    fi
+   sed -i -e "s/\$db_pass =.*/\$db_pass = '${MYSQLPW_COLL}';/" /var/www/html/config/standard/config.php
 fi
 
 rm -f /root/backup_init.sql /root/collabtive20_init.tar
