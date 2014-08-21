@@ -13,7 +13,7 @@ RUN yum install -y httpd php php-pear php-xml php-mysql php-intl php-pecl-apc ph
 ADD etc/supervisor.d/httpd.ini /etc/supervisord.d/httpd.ini
 
 # Jumpstart mariadb
-#RUN useradd mysql
+RUN getent passwd mysql || useradd mysql
 RUN mkdir -p /var/run/mysqld; chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 ADD etc/supervisor.d/start_mysqld.ini /etc/supervisord.d/start_mysqld.ini
 ADD root/bin/start_mysqld.sh /root/bin/start_mysqld.sh
