@@ -1,11 +1,12 @@
 #!/bin/bash
 
-touch /var/run/setup_collective.pid
 
+# to fetch the aliases
+shopt -s expand_aliases
 source /root/bash_func
 
 # wait for the pid
-watch_pid 0
+wait_pid
 sleep 2
 
 if [ ! -f /var/www/html/index.php ];then
@@ -33,6 +34,6 @@ if [ ! -f /var/www/html/index.php ];then
    sed -i -e "s/\$db_pass =.*/\$db_pass = '${MYSQLPW_COLL}';/" /var/www/html/config/standard/config.php
 fi
 
-rm -f /var/run/setup_collective.pid
+touch /var/run/setup_collective.pid
 
 rm -f /root/backup_init.sql /root/collabtive20_init.tar

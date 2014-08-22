@@ -3,7 +3,6 @@
 PID_FILE=${PID_FILE-/var/run/mysqld/mysqld.pid}
 DELAY=${DELAY-3}
 
-
 alias wait_pid='watch_pid 0'
 
 function watch_pid {
